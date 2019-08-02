@@ -1,22 +1,29 @@
 <?php 
 
+// Ativar visualizacao de erros
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+
 require_once("vendor/autoload.php");
 
-$app = new \Slim\Slim();
+use \Slim\Slim;
+use \Hcode\Page;
+
+$app = new Slim();
 
 $app->config('debug', true);
 
 $app->get('/', function() {
     
-	//echo "OK, baby!!";
-	$sql = new Hcode\DB\Sql();
-	
-	$results = $sql->select("SELECT * FROM tb_users");
+	$page = new Page();
 
-	echo json_encode($results);
+	$page->setTpl("index");
 
 });
 
+
 $app->run();
 
- ?>
+?>
